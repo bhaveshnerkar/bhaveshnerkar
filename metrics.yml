@@ -1,0 +1,81 @@
+name: Update GitHub Profile Metrics
+
+on:
+  # Refresh once daily (UTC)
+  schedule:
+    - cron: "17 1 * * *"
+  # Allow manual runs from the Actions tab
+  workflow_dispatch:
+  # Refresh after changes to the workflow
+  push:
+    paths:
+      - ".github/workflows/metrics.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-metrics
+  cancel-in-progress: false
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Generate GitHub metrics and 3D contribution calendar
+        uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: bhaveshnerkar
+          filename: github-metrics.svg
+          committer_token: ${{ secrets.GITHUB_TOKEN }}
+          committer_branch: main
+          committer_message: "chore: update profile metrics [Skip GitHub Action]"
+          output_action: commit
+
+          # Dark profile-card appearance
+          template: classic
+          config_theme: tokyo-night
+          config_display: large
+          config_timezone: Asia/Kolkata
+          config_animations: yes
+          config_padding: 0, 8 + 4%
+
+          # Keep the main infographic focused on GitHub activity
+          base: header, activity, community, repositories
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+          plugin_languages: yes
+          plugin_languages_sections: most-used, recently-used
+          plugin_languages_details: percentage, bytes-size, lines
+          plugin_languages_limit: 8
+          plugin_achievements: yes
+          plugin_achievements_display: compact
+          plugin_topics: yes
+          plugin_topics_mode: icons
+          plugin_topics_limit: 12
+
+      # Optional anime card. AniList is public and does not need a token.
+      # Replace YOUR_ANILIST_USERNAME with your AniList login before enabling.
+      - name: Generate anime favorites from AniList
+        if: ${{ vars.ANILIST_USERNAME != '' }}
+        uses: lowlighter/metrics@latest
+        with:
+          token: NOT_NEEDED
+          user: bhaveshnerkar
+          filename: metrics.anilist.svg
+          committer_token: ${{ secrets.GITHUB_TOKEN }}
+          committer_branch: main
+          committer_message: "chore: update anime profile card [Skip GitHub Action]"
+          output_action: commit
+          base: ""
+          config_theme: tokyo-night
+          config_timezone: Asia/Kolkata
+          plugin_anilist: yes
+          plugin_anilist_user: ${{ vars.ANILIST_USERNAME }}
+          plugin_anilist_medias: anime
+          plugin_anilist_sections: favorites, characters
+          plugin_anilist_limit: 4
+          plugin_anilist_limit_characters: 12
