@@ -86,12 +86,3 @@ Anime is one of my interests outside coding. If you use AniList, add your AniLis
 - 
 [<img align="right" alt="🦑" src=abc.png>](#)
 
----
-
-<div align="center">
-
-**Learn · Build · Debug · Repeat** ⚡
-
-<sub>Still learning, still building, and always taking the next step.</sub>
-
-</div>
