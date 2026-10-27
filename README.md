@@ -1,6 +1,7 @@
 <div align="center">
 
-# Hey, I'm Bhavesh Nerkar 👋
+  <img src="Bhavesh Nerkar Golden Fantasy Logo.png" />
+
 
 ### CSE (Data Science) Student · Python Learner · Builder in Progress
 
