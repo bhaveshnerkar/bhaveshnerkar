@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="Bhavesh Nerkar Golden Fantasy Logo.png" />
+  <img src="image/Bhavesh Nerkar Golden Fantasy Logo (1).png" />
 
 
 ### CSE (Data Science) Student · Python Learner · Builder in Progress
